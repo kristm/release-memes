@@ -1,0 +1,166 @@
+!!!
+%html
+  %head
+    %title Release Memes
+    %link{rel: 'stylesheet', href: '/webfonts/alapaap.css'}
+    %link{rel: 'stylesheet', href: '/webfonts/isabel.css'}
+    %script{src: 'https://code.jquery.com/jquery-3.6.0.min.js'}
+    :css
+      * { margin: 0; padding: 0 }
+      body {
+        background-color: #fff;
+        background-size: 300px;
+        background-repeat: repeat;
+        font-family: Impact, sans-serif;
+        font-size: 18pt;
+        padding: 1em;
+        text-align: center;
+        margin: auto;
+        animation: bg-scrolling 5s linear infinite; 
+      }
+      h1 {
+        font-size: 2em;
+        padding: 1em 0;
+      }
+      dt {
+        text-transform: uppercase;
+        position: relative;
+        width: 200px;
+        top: 120px;
+        z-index: 2;
+        text-align: left;
+        margin-top: 50vh;
+      }
+      dt .author {
+        font-size: smaller;
+        font-family: 'Isabel-Regular', sans-serif;
+        font-style: italic;
+        text-transform: initial;
+        color: black;
+      }
+      dt.odd {
+        left: calc(10vw + 50px);
+      }
+      dt.even {
+        left: calc(15vw + 90px);
+        padding-left: 0;
+      }
+      dd {
+        position: relative;
+        margin-bottom: 30vh;
+      }
+      dd svg {
+        width: 100px;
+        height: 100px;
+        position: absolute;
+        top: 50px;
+        z-index: 1;
+        animation: spin 5s infinite linear;
+      }
+      dd.odd > svg {
+        left: 10vw;
+        fill: cyan;
+      }
+      dd.even > svg {
+        left: 15vw;
+        fill: yellow;
+        width: 150px;
+        height: 150px;
+        animation-direction: reverse;
+      }
+      dd.wide > svg {
+        left: 5vw;
+      }
+      dt.wide {
+        left: calc(5vw + 50px);
+      }
+      dd.odd > img {
+        transform: skewX(5deg);
+        animation: crazy-border1 .5s infinite;
+      }
+      dd.odd > img:hover {
+      }
+      dd.even > img:hover {
+      }
+      dd.even > img {
+        transform: skewX(-5deg);
+        animation: crazy-border2 .5s infinite;
+      }
+      .bricks { display: none }
+      .brick-1 .cls-5 {
+        animation: bg-shuffle-1 infinite 3s steps(1,end);
+      }
+      @keyframes bg-shuffle-1 {
+        0% { fill: #fc0080 }
+        50% { fill: #ffc6e3 }
+      }
+      .wide > img {
+        width: 40%;
+      }
+      .big {
+        font-family: 'Alapaap-Regular', sans-serif;
+        font-size: 4em }
+      .big:hover, dt:hover {
+       animation: crazy-colors 1s infinite;
+       cursor: default;
+      }
+      @keyframes bg-scrolling {
+        0% { background-position: 300px 300px }
+      }
+      @keyframes crazy-colors {
+        0% { color: black; }
+        10% { color: deeppink; }
+        20% { color: green; }
+        30% { color: orangered; }
+        40% { color: yellow; }
+        50% { color: blue; }
+        60% { color: gray; }
+        70% { color: purple; }
+        80% { color: orange; }
+        90% { color: red; }
+        100% { color: black; }
+      }
+      @keyframes crazy-border1 {
+        0 { box-shadow: -10px 10px hotpink }
+        50% { box-shadow: -30px 30px hotpink }
+        100% { box-shadow: -5px 5px hotpink }
+      }
+      @keyframes crazy-border2 {
+        0 { box-shadow: 10px 10px hotpink }
+        50% { box-shadow: 30px 30px hotpink }
+        100% { box-shadow: 5px 5px hotpink }
+      }
+      @keyframes crazy-slide {
+        0% { transform: skewX(0deg) }
+        50% { transform: skewX(10deg) }
+        100% { transform: skewX(-10deg) }
+      }
+      @keyframes spin {
+        from { transform: rotate(0) }
+        to { transform: rotate(360deg) }
+      }
+
+  %body
+    %h1
+      MEMES OF RELEASE
+      %br
+      %span{class: "big" } 2021
+
+    %dl
+      - collection.each_with_index do |meme, index|
+        - css_class = (index + 1) % 2 == 0 ? 'even' : 'odd'
+        - css_class += !meme['wide'].nil? ? " wide" : ""
+        %dt{class: css_class}
+          = meme['date']
+          %br
+          .author= meme['author']
+        %dd{class: css_class}
+          = haml :svg
+          - img = meme['img'] || "no-meme.png"
+          %img{src: "/images/memes/2021/#{img}"}
+
+    .bricks
+      = haml :bg_svg
+
+    :javascript
+      $('body').css('background-image', 'url(data:image/svg+xml;base64,'+btoa($(".bricks").html()))

@@ -1,0 +1,23 @@
+/*
+Font: 		Alapaap
+Style: 		Regular
+URL: 		https://www.youworkforthem.com/font/T13820/alapaap
+Foundry: 	Hello Wala Type Foundry
+Foundry: 	https://www.youworkforthem.com/designer/1501/hello-wala-type-foundry
+Copyright:	Copyright © 2021 by Krist Menina. All rights reserved.
+Version: 	17
+Created:	March 06, 2021
+License: 	https://www.youworkforthem.com/font-license 
+License: 	The WebFont(s) listed in this document must follow the YouWorkForThem
+			WebFont license rules. All other parties are strictly restricted 
+			from using the WebFonts(s) listed without a purchased license. 
+			All details above must always remain unaltered and visible in your CSS.
+*/
+
+@font-face {
+	font-family: 'Alapaap-Regular';
+	src: url('alapaap-webfont.woff2') format('woff2'),
+	     url('alapaap-webfont.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
